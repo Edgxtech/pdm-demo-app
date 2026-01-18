@@ -1,0 +1,53 @@
+# Midnight Development Network
+#
+# This docker-compose starts a local Midnight development network for demo testing.
+# Usage: docker compose up -d
+#
+# Services:
+# - Node:         localhost:9944 (WebSocket/RPC)
+# - Indexer:      localhost:8088 (GraphQL API)
+# - Proof Server: localhost:6300 (ZK Proof generation)
+
+services:
+  node:
+    image: 'midnightnetwork/midnight-node:0.12.0'
+    container_name: 'node'
+    ports:
+      - "9944:9944"
+      - "30333:30333"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9944/health" ]
+      interval: 2s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    environment:
+      CFG_PRESET: "dev"
+    volumes:
+      - midnight_node_data:/node/chain
+
+  indexer:
+    container_name: 'indexer'
+    image: 'midnightntwrk/indexer-standalone:2.1.2'
+    ports:
+      - '8088:8088'
+    environment:
+      RUST_LOG: "indexer=info,chain_indexer=info,indexer_api=info,wallet_indexer=info,indexer_common=info,fastrace_opentelemetry=info,info"
+      APP__INFRA__SECRET: "303132333435363738393031323334353637383930313233343536373839303132"
+      APP__INFRA__NODE__URL: "ws://node:9944"
+    volumes:
+      - midnight_indexer_data:/data
+    depends_on:
+      node:
+        condition: service_started
+
+  proof-server:
+    container_name: 'proof-server'
+    image: "midnightnetwork/proof-server:4.0.0"
+    command: [ "midnight-proof-server", "-v", "--network", "undeployed" ]
+    ports:
+      - "6300:6300"
+
+volumes:
+  midnight_node_data:
+  midnight_indexer_data:

@@ -1,0 +1,43 @@
+{
+    "name": "pdm-demo-app",
+    "description": "Private Data Manager Demo - Privacy-preserving data sharing on Midnight blockchain",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "setup": "npx tsx scripts/setup.ts",
+        "create-wallets": "npx tsx scripts/create-wallets.ts",
+        "check-balance": "npx tsx scripts/check-balance.ts",
+        "fund": "npx tsx scripts/fund-wallet.ts",
+        "deploy": "npx tsx scripts/deploy-contract.ts",
+        "register-credentials": "npx tsx scripts/register-credentials.ts",
+        "demo:age": "npx tsx scripts/demo-01-zk-age-proof.ts",
+        "demo:p2p": "npx tsx scripts/demo-02-p2p-share.ts",
+        "demo:storage": "npx tsx scripts/demo-03-onchain-storage.ts",
+        "demo:emergency": "npx tsx scripts/demo-04-emergency-auth.ts",
+        "demo:all": "npm run demo:age && npm run demo:p2p && npm run demo:storage && npm run demo:emergency"
+    },
+    "dependencies": {
+        "@meshsdk/midnight-setup": "^1.9.0-beta.94",
+        "@midnight-ntwrk/compact-runtime": "^0.9.0",
+        "@midnight-ntwrk/ledger": "^4.0.0",
+        "@midnight-ntwrk/midnight-js-contracts": "2.0.2",
+        "@midnight-ntwrk/midnight-js-http-client-proof-provider": "2.0.2",
+        "@midnight-ntwrk/midnight-js-network-id": "2.0.2",
+        "@midnight-ntwrk/midnight-js-node-zk-config-provider": "2.0.2",
+        "@midnight-ntwrk/midnight-js-types": "2.0.2",
+        "@midnight-ntwrk/wallet": "5.0.0",
+        "@midnight-ntwrk/wallet-api": "5.0.0",
+        "@midnight-ntwrk/zswap": "4.0.0",
+        "@noble/curves": "^2.0.1",
+        "@noble/hashes": "^2.0.1",
+        "crypto-js": "^4.2.0",
+        "dotenv": "^16.4.5",
+        "rxjs": "^7.8.1"
+    },
+    "devDependencies": {
+        "@types/crypto-js": "^4.2.2",
+        "@types/node": "^22.10.0",
+        "tsx": "^4.19.0",
+        "typescript": "^5.9.3"
+    }
+}

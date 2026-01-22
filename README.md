@@ -159,8 +159,8 @@ npm run check-balance    # Verify: Check wallet balances
 ### Stopping the Network
 
 ```bash
-docker compose -f background/midnight-node/docker-compose.yml down        # Stop (preserves data)
-docker compose -f background/midnight-node/docker-compose.yml down -v     # Stop and delete all data
+docker compose -f background/midnight-node/compose.yml down        # Stop (preserves data)
+docker compose -f background/midnight-node/compose.yml down -v     # Stop and delete all data
 ```
 
 ---
